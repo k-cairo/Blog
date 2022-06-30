@@ -7,8 +7,8 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>New Post</h1>
-                    <span class="subheading">You're going to make a great blog post!</span>
+                    <h1>Nouvel Article</h1>
+                    <span class="subheading">Création d'un nouvel article</span>
                 </div>
             </div>
         </div>
@@ -20,12 +20,13 @@
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                 <table>
+                    {{ form.media }}
                     {{ form.as_table }}
                 </table>
-                    <input type="submit" value="Submit">
+                    <input type="submit" value="Valider">
             </form>
         </div>
     </div>
