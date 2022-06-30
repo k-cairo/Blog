@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from BlogWebsite.form import BlogPost
+from BlogWebsite.form import BlogPostForm
 
 
 def index(request):
@@ -9,12 +9,12 @@ def index(request):
 
 def new_post(request):
     if request.method == "POST":
-        form = BlogPost(request.POST)
+        form = BlogPostForm(request.POST)
         if form.is_valid():
             pass
             return HttpResponseRedirect('/thanks/')
 
     else:
-        form = BlogPost()
+        form = BlogPostForm()
 
     return render(request, 'blog/make-post-2.html', context={'form': form})
