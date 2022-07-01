@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from BlogWebsite.form import BlogPostForm
 from .models import BlogPost
 from datetime import date
@@ -11,7 +11,6 @@ def index(request):
 
 def post(request, slug):
     target_post = BlogPost.objects.filter(slug=slug).get()
-    print(target_post)
     return render(request, 'blog/post.html', context={'target_post': target_post})
 
 
@@ -25,7 +24,8 @@ def edit_post(request, slug):
             blog_post.published_date = date.today()
             blog_post.author = 'CAIRO Kévin'
             blog_post.save()
-            return render(request, 'blog/index.html')
+            target_post.delete()
+            return redirect('blog-index')
     else:
         form = BlogPostForm(initial={'title': target_post.title,
                                      'chakras': target_post.chakras,
@@ -44,8 +44,18 @@ def new_post(request):
             blog_post.published_date = date.today()
             blog_post.author = 'CAIRO Kévin'
             blog_post.save()
-            return render(request, 'blog/index.html')
+            return redirect('blog-index')
     else:
         form = BlogPostForm()
 
     return render(request, 'blog/new-post.html', context={'form': form})
+
+
+def delete_post(request, slug):
+    target_post = BlogPost.objects.filter(slug=slug).get()
+    target_post.delete()
+    return redirect('blog-index')
+
+
+def about(request):
+    return render(request, 'blog/about.html')

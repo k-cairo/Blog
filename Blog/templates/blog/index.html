@@ -33,15 +33,22 @@
                         </a>
                         <p class="post-meta">
                             Posté par
-                            <a href="#!">{{ post.author }}</a>
+                            <a href="https://github.com/k-cairo">{{ post.author }}</a>
                             le {{ post.published_date }}
+                            {% if user.is_superuser %}
+                            <a href="{% url 'blog-delete_post' post.slug %}">✘</a>
+                            {% endif %}
                         </p>
                     </div>
                     <!-- Divider-->
                     <hr class="my-4" />
                     {% endfor %}
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{% url 'blog-new_post' %}">Nouvel Article</a></div>
+                    {% if user.is_superuser %}
+                    <div class="d-flex justify-content-end mb-4">
+                        <a class="btn btn-primary text-uppercase" href="{% url 'blog-new_post' %}">Nouvel Article</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

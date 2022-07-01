@@ -3,7 +3,8 @@
 
 {% block header %}
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('static/blog/assets/img/home-bg.jpg')">
+<!--<header class="masthead" style="background-image: url('{% static 'blog/assets/img/home-bg.jpg' %}')">-->
+<header class="masthead" style="background-image: url('{{ target_post.image }}')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
@@ -24,10 +25,11 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 {{ target_post.content|safe }}
+                {% if user.is_superuser %}
                 <div class="d-flex justify-content-end mb-4">
                     <a class="btn btn-primary text-uppercase" href="{% url 'blog-edit_post' target_post.slug %}">Editer Article</a>
                 </div>
-
+                {% endif %}
             </div>
         </div>
     </div>
